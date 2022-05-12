@@ -1,0 +1,49 @@
+{% extends 'base.html' %} {% block title %}Timelines{% endblock %} {% block
+main%}
+
+<div class="container">
+  <center>
+    <div
+      class="btn-group"
+      role="group"
+      aria-label="Basic radio toggle button group"
+    >
+      <input type="radio" class="btn-check" name="btnradio" id="1day"
+      value="1day" autocomplete="off" {% if btnChecked=="1day" %}checked{% endif
+      %} onclick="handleClick(this);" />
+      <label class="btn btn-outline-primary" for="1day">1day</label>
+
+      <input type="radio" class="btn-check" name="btnradio" id="3days"
+      value="3days" autocomplete="off" {% if btnChecked=="3days" %}checked{%
+      endif %} onclick="handleClick(this);" />
+      <label class="btn btn-outline-primary" for="3days">3days</label>
+
+      <input type="radio" class="btn-check" name="btnradio" id="1week"
+      value="1week" autocomplete="off" {% if btnChecked=="1week" %}checked{%
+      endif %} onclick="handleClick(this);" />
+      <label class="btn btn-outline-primary" for="1week">1week</label>
+
+      <input type="radio" class="btn-check" name="btnradio" id="2weeks"
+      value="2weeks" autocomplete="off" {% if btnChecked=="2weeks" %}checked{%
+      endif %} onclick="handleClick(this);" />
+      <label class="btn btn-outline-primary" for="2weeks">2weeks</label>
+
+      <input type="radio" class="btn-check" name="btnradio" id="1month"
+      value="1month" autocomplete="off" {% if btnChecked=="1month" %}checked{%
+      endif %} onclick="handleClick(this);" />
+      <label class="btn btn-outline-primary" for="1month">1month</label>
+    </div>
+  </center>
+  <div id="myChart"></div>
+</div>
+
+<script>
+  var graphs = {{graphJSON | safe}};
+  Plotly.plot('myChart',graphs,{});
+
+  function handleClick(radio) {
+    location.replace(`http://127.0.0.1:5000/timelines/${radio.value}?user=matej`)
+  }
+</script>
+
+{% endblock %}
